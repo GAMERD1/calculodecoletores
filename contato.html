@@ -3,44 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTATO</title>
+    <title>Contato</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>CONTATO</h1>
-        <nav>
-            <a href="index.html">SISTEMA</a>
-            <a href="contato.html">CONTATO</a>
-        </nav>
+        <div class="container">
+            <h1>Contato</h1>
+            <nav>
+                <a href="index.html">Sistema</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+        </div>
     </header>
 
     <main>
         <div class="container">
-            <h2>ENTRE EM CONTATO CONOSCO</h2>
-            <p>ENVIE SUAS DICAS, IDEIAS OU SUGESTÕES PARA MELHORAR O SISTEMA.</p>
+            <h2>Entre em contato conosco</h2>
+            <p>Envie suas dúvidas, sugestões ou feedback para melhorar o sistema.</p>
             <form action="mailto:atendimento.qgdigital@gmail.com" method="post" enctype="text/plain">
-                <label for="nome">NOME:</label>
+                <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required>
 
-                <label for="email">E-MAIL:</label>
+                <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" required>
 
-                <label for="mensagem">MENSAGEM:</label>
+                <label for="mensagem">Mensagem:</label>
                 <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
 
-                <button type="submit">ENVIAR</button>
+                <button type="submit">Enviar</button>
             </form>
 
             <div class="info-contato">
-                <p>E-MAIL DE CONTATO: <a href="mailto:atendimento.qgdigital@gmail.com">atendimento.qgdigital@gmail.com</a></p>
-                <p>PATREON: <a href="https://patreon.com/qgfinanceiro" target="_blank">patreon.com/qgfinanceiro</a></p>
+                <p>E-mail de contato: <a href="mailto:atendimento.qgdigital@gmail.com">atendimento.qgdigital@gmail.com</a></p>
+                <p>Patreon: <a href="https://patreon.com/qgfinanceiro" target="_blank">patreon.com/qgfinanceiro</a></p>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>DESENVOLVIDO POR FELIPE INDEJEJCZAK</p>
+        <div class="container">
+            <p class="creditos">Desenvolvido por Felipe Indejejczak ❤️</p>
+        </div>
     </footer>
 </body>
 </html>
