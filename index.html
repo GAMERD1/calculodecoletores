@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCULADORA DE COLETORES SOLARES</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>CALCULADORA DE COLETORES SOLARES</h1>
+        <nav>
+            <a href="index.html">SISTEMA</a>
+            <a href="contato.html">CONTATO</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>CALCULE O NÚMERO DE COLETORES SOLARES NECESSÁRIOS</h2>
+            <form id="calculadoraForm">
+                <label for="empresa">ESCOLHA A EMPRESA:</label>
+                <select id="empresa" name="empresa">
+                    <option value="KOMECO">KOMECO</option>
+                    <option value="Solis">SOLIS</option>
+                    <option value="Mastersol">MASTERSOL</option>
+                    <option value="Girassol">GIRASSOL</option>
+                    <option value="Soria">SORIA</option>
+                    <option value="Tempersol">TEMPERSOL</option>
+                    <option value="TS-Solar">TS-SOLAR</option>
+                </select>
+
+                <label for="modelo">ESCOLHA O MODELO (SE APLICÁVEL):</label>
+                <select id="modelo" name="modelo">
+                    <option value="">-- SELECIONE --</option>
+                </select>
+
+                <label>MÉTODO DE CÁLCULO:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="metodo" value="Litragem" checked> LITRAGEM</label>
+                    <label><input type="radio" name="metodo" value="Área"> ÁREA (M²)</label>
+                </div>
+
+                <div id="litrosInput">
+                    <label for="litros">LITRAGEM DA PISCINA (LITROS):</label>
+                    <input type="number" id="litros" name="litros">
+                </div>
+
+                <div id="areaInput" style="display: none;">
+                    <label for="comprimento">COMPRIMENTO DA PISCINA (M):</label>
+                    <input type="number" id="comprimento" name="comprimento">
+
+                    <label for="largura">LARGURA DA PISCINA (M):</label>
+                    <input type="number" id="largura" name="largura">
+
+                    <p id="areaCalculada">ÁREA CALCULADA: </p>
+                </div>
+
+                <label>AJUSTE DE 30% (PRAINHA/CASCATA/REGIÃO FRIA)?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="ajuste" value="Sim"> SIM</label>
+                    <label><input type="radio" name="ajuste" value="Não" checked> NÃO</label>
+                </div>
+
+                <button type="button" onclick="calcularColetores()">CALCULAR COLETORES</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>DESENVOLVIDO POR FELIPE INDEJEJCZAK</p>
+    </footer>
+
+    <script>
+        const empresas = {
+            "KOMECO": { "modelos": { "KOCS PS 2.0": 2.4, "KOCS PS 3.0": 3.6, "KOCS PS 4.0": 4.8 } },
+            "Solis": { "capacidade_por_coletor": 4000 },
+            "Mastersol": { "modelos": { "Mastersol 2000": 1.2, "Mastersol 3000": 1.5, "Mastersol 3700": 1.8, "Mastersol 4500": 2.0, "Mastersol 5000": 2.5 } },
+            "Girassol": { "capacidade_por_coletor": 4000 },
+            "Soria": { "modelos": { "Urja 200": 0.64, "Urja 300": 0.96, "Urja 400": 1.18, "Urja 500": 1.44, "Urja 5000": 6.0 } },
+            "Tempersol": { "modelos": { "Pool 200": 1.0, "Pool 300": 1.5, "Pool 400": 2.0 } },
+            "TS-Solar": { "modelos": { "2m x 0,30m": 0.6, "3m x 0,30m": 0.9, "3,70m x 0,30m": 1.11, "4m x 0,30m": 1.2, "5m x 0,30m": 1.5 } }
+        };
+
+        document.getElementById('empresa').addEventListener('change', function () {
+            const empresa = this.value;
+            const modeloSelect = document.getElementById('modelo');
+            modeloSelect.innerHTML = '<option value="">-- SELECIONE --</option>';
+
+            if (empresas[empresa] && empresas[empresa].modelos) {
+                Object.keys(empresas[empresa].modelos).forEach(modelo => {
+                    modeloSelect.innerHTML += `<option value="${modelo}">${modelo}</option>`;
+                });
+            }
+        });
+
+        document.querySelectorAll('input[name="metodo"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.value === "Litragem") {
+                    document.getElementById('litrosInput').style.display = 'block';
+                    document.getElementById('areaInput').style.display = 'none';
+                } else {
+                    document.getElementById('litrosInput').style.display = 'none';
+                    document.getElementById('areaInput').style.display = 'block';
+                }
+            });
+        });
+
+        function calcularColetores() {
+            const empresa = document.getElementById('empresa').value;
+            const metodo = document.querySelector('input[name="metodo"]:checked').value;
+            const ajuste = document.querySelector('input[name="ajuste"]:checked').value;
+
+            let numColetores;
+
+            if (metodo === "Litragem") {
+                const litros = parseFloat(document.getElementById('litros').value);
+                if (empresas[empresa].capacidade_por_coletor) {
+                    numColetores = litros / empresas[empresa].capacidade_por_coletor;
+                } else {
+                    alert("ESTA EMPRESA NÃO SUPORTA CÁLCULO POR LITRAGEM!");
+                    return;
+                }
+            } else {
+                const comprimento = parseFloat(document.getElementById('comprimento').value);
+                const largura = parseFloat(document.getElementById('largura').value);
+                const area = comprimento * largura;
+                document.getElementById('areaCalculada').innerText = `ÁREA CALCULADA: ${area.toFixed(2)} M²`;
+
+                const modelo = document.getElementById('modelo').value;
+                if (!empresas[empresa].modelos || !empresas[empresa].modelos[modelo]) {
+                    alert("MODELO NÃO ENCONTRADO!");
+                    return;
+                }
+                numColetores = area / empresas[empresa].modelos[modelo];
+            }
+
+            if (ajuste === "Sim") {
+                numColetores *= 1.3;
+            }
+
+            numColetores = Math.ceil(numColetores);
+            alert(`NÚMERO DE COLETORES NECESSÁRIOS: ${numColetores}`);
+        }
+    </script>
+</body>
+</html>
