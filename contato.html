@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f8ff; /* Azul claro */
+            color: #2c3e50; /* Azul escuro */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1a5276; /* Azul escuro */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #2ecc71; /* Verde */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            color: #1a5276; /* Azul escuro */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: 500;
+            color: #2c3e50; /* Azul escuro */
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+            color: #2c3e50; /* Azul escuro */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #1a5276; /* Azul escuro */
+            box-shadow: 0 0 10px rgba(26, 82, 118, 0.2);
+            outline: none;
+        }
+
+        button {
+            background-color: #2ecc71; /* Verde */
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #27ae60; /* Verde mais escuro */
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .info {
+            font-size: 0.9rem;
+            color: #7f8c8d; /* Cinza */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #1a5276; /* Azul escuro */
+            color: white;
+            margin-top: 20px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .creditos {
+            font-size: 0.8rem;
+            margin: 0;
+            color: #ecf0f1; /* Cinza claro */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contato</h1>
+        <nav>
+            <a href="index.html">Sistema</a>
+            <a href="contato.html">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Entre em contato conosco</h2>
+            <p>Envie suas dúvidas, sugestões ou feedback para melhorar o sistema.</p>
+            <form id="contatoForm">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="mensagem">Mensagem:</label>
+                <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+
+                <button type="submit">Enviar</button>
+            </form>
+
+            <div class="info-contato">
+                <p>E-mail de contato: <a href="mailto:atendimento.qgdigital@gmail.com">atendimento.qgdigital@gmail.com</a></p>
+                <p>Patreon: <a href="https://patreon.com/qgfinanceiro" target="_blank">patreon.com/qgfinanceiro</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p class="creditos">Desenvolvido por Felipe Indejejczak ❤️</p>
+    </footer>
+
+    <script>
+        // Validação do formulário de contato
+        document.getElementById('contatoForm').addEventListener('submit', function (event) {
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const mensagem = document.getElementById('mensagem').value.trim();
+
+            if (!nome || !email || !mensagem) {
+                alert('Por favor, preencha todos os campos do formulário.');
+                event.preventDefault(); // Impede o envio do formulário
+            } else if (!email.includes('@') || !email.includes('.')) {
+                alert('Por favor, insira um e-mail válido.');
+                event.preventDefault(); // Impede o envio do formulário
+            } else {
+                alert('Mensagem enviada com sucesso!');
+                // Aqui você pode adicionar lógica para enviar o formulário por AJAX, etc.
+            }
+        });
+    </script>
+</body>
+</html>
